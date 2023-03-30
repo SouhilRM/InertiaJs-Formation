@@ -18,8 +18,8 @@
 <script setup>
     import { Link } from '@inertiajs/vue3'
 
+    //ref permet de declarer un timer
     import { ref } from "vue";
-
     const timer = ref(0)
 
     setInterval(()=> timer.value++, 1000)

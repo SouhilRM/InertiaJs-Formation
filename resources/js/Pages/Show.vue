@@ -1,18 +1,26 @@
 <template>
-    <main-layout>
-        <template #default>
-            <div>
-                <h1>notre Show.vue</h1>
-            </div>
+    
+        
+    <div>
+        <h1>notre Show.vue</h1>
+    </div>
 
-            <div>
-                <Link href="/">vers l'index</Link>
-            </div>
-        </template>
-    </main-layout>  
+    <div>
+        <Link href="/">vers l'index</Link>
+    </div>
+        
+    
 </template>
 
 <script setup>
     import { Link } from '@inertiajs/vue3'
-    import MainLayout from "../Pages/Layouts/MainLayout.vue";
+    //import MainLayout from "../Pages/Layouts/MainLayout.vue";
+</script>
+
+<script>
+import MainLayout from "../Pages/Layouts/MainLayout.vue";
+
+export default{
+    layout: MainLayout,
+}
 </script>
