@@ -1,7 +1,9 @@
 <template>
 
     <Link href="/">INDEX</Link>&nbsp;
-    <Link href="/show">SHOW</Link>
+    <Link href="/show">SHOW</Link>&nbsp;
+    <Link href="/index">indexlisting</Link>&nbsp;
+    <Link href="/create">Create Listing</Link>
     
     <h2>{{ timer }}</h2>
 
@@ -18,7 +20,7 @@
 <script setup>
     import { Link } from '@inertiajs/vue3'
 
-    //ref permet de declarer un timer
+    //"ref" permet de declarer un truc en temps reel ideal pour le temps
     import { ref } from "vue";
     const timer = ref(0)
 

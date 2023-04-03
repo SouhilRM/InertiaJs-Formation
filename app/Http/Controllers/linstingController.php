@@ -25,4 +25,29 @@ class linstingController extends Controller
             ]
         );
     }
+
+    public function create(){
+        return inertia(
+            'Listing/Create',
+
+        );
+    }
+
+    public function store(Request $request){
+        //dd($request->all());
+
+        // listing::insert([
+        //     'beds' => $request->beds,
+        //     'baths' => $request->baths,
+        //     'area' => $request->area,
+        //     'city' => $request->city,
+        //     'street' => $request->street,
+        //     'code' => $request->code,
+        //     'street_nr' => $request->street_nr,
+        //     'price' => $request->price,
+        // ]);
+        listing::create($request->all());
+
+        return redirect()->route('listing.index')->with('success', 'Listing was created!');
+    }
 }
