@@ -68,7 +68,26 @@
     //const create = () => form.post('/listing') ===> useless
 
     function create() {
-        router.post('/store', form)
+        router.post(
+          '/store', 
+          form,
+          {
+            onSuccess: (page) =>{
+              Swal.fire({
+                toast: true,
+                icon: "success",
+                title: "ceci est une erreur billy !!",
+                animation: false,
+                position: "top-end",
+                showConfirmButton: false,
+                timer: 3000,
+              })
+            },
+            onError: (errors) => {
+              alert('ohhhhh erreuurr!!')
+            }
+          }
+        )
     }
     //pareil
     //const create = () => router.post('/listing', form)

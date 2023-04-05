@@ -5,6 +5,9 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
+        <!-- SweetAlert2 -->
+        <script defer src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
         <title>Larazillow</title>
 
         @vite('resources/js/app.js')
