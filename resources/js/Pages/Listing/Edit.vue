@@ -1,5 +1,5 @@
 <template>
-    <form @submit.prevent="create">
+    <form @submit.prevent="update">
       <div>
         <div>
           <label>Beds</label>
@@ -42,41 +42,40 @@
         </div>
   
         <div>
-          <button type="submit">Create</button>
+          <button type="submit">Update</button>
         </div>
       </div>
     </form>
 </template>
 
 <script setup>
-    //import { useForm } from '@inertiajs/inertia-vue3' ===> useless
+    
     import { router } from '@inertiajs/vue3'
 
     import { reactive } from "vue"
-    //petite remarque pk ne pas avoir utiliser 'ref' au lieu de 'reactive' car il est preferable de le faire quad t'as beaucoup de trucs comme ici ou l'on a plusieurs input donc tu mets tous dans un objet et loreceque tu utilises les objets tu utilises 'reacctive' sinon tu utilises 'ref'
+
+    const props = defineProps(['listing'])
     const form = reactive({
-        beds: 0,
-        baths: 0,
-        area: 0,
-        city: null,
-        street: null,
-        code: null,
-        street_nr: null,
-        price: 0,
+        beds: props.listing.beds,
+        baths: props.listing.baths,
+        area: props.listing.area,
+        city: props.listing.city,
+        street: props.listing.street,
+        code: props.listing.code,
+        street_nr: props.listing.street_nr,
+        price: props.listing.price,
     })
 
-    //const create = () => form.post('/listing') ===> useless
-
-    function create() {
+    function update() {
         router.post(
-          '/store', 
+          `/update/${props.listing.id}`,
           form,
           {
             onSuccess: (page) =>{
               Swal.fire({
                 toast: true,
                 icon: "success",
-                title: "listing créé avec succées Hamouda !!",
+                title: "Linsting modifié avec succées BILY !!",
                 animation: false,
                 position: "top-end",
                 showConfirmButton: false,
@@ -89,8 +88,6 @@
           }
         )
     }
-    //pareil
-    //const create = () => router.post('/listing', form)
 
 </script>
 
