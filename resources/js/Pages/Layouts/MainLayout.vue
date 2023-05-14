@@ -1,18 +1,18 @@
 <template>
 
-    <Link href="/">INDEX</Link>&nbsp;
-    <Link href="/show">SHOW</Link>&nbsp;
-    <Link href="/index">indexlisting</Link>&nbsp;
-    <Link href="/create">Create Listing</Link>
+    <Link :href="route('index')">INDEX</Link>&nbsp;
+    <Link :href="route('index.show')">SHOW</Link>&nbsp;
+    <Link :href="route('listing.index')">indexlisting</Link>&nbsp;
+    <Link :href="route('listing.create')">Create Listing</Link>
 
-    <div v-if="flashSuccess" class="success">
+    <!-- <div v-if="flashSuccess" class="success">
         {{ flashSuccess }}
-    </div>    
+    </div> -->
     
     <h2>{{ timer }}</h2>
 
     <header>
-        <slot name="header"><h1>header par defaut</h1></slot>
+        <h1>ceci est un text qui provient du layout</h1>
     </header>
 
     <div>
@@ -32,9 +32,9 @@
 
     //pour itiliser les sharing data t'as besoin du 'usePage' noublie pas de l'ipmorter 
     //on a aussi importer le 'computed' depuis vue juste pour ne pas ecrire une grosse expression à chaque fois que t'as une expression enorme avec de la logique utilise 'computed' comme vue et declare ta logique dans une fonction que tu pourras utiliser plus tard.
-    const flashSuccess = computed(
-        () => usePage().props.flash.success,
-    )
+    // const flashSuccess = computed(
+    //     () => usePage().props.flash.success,
+    // )
 </script>
 
 <style scoped>
@@ -47,9 +47,5 @@
         border-radius: 12px;
         box-shadow: 0 2px 8px rgba(0, 0, 0, 0.26);
         padding: 1rem;
-    }
-    .success {
-        background-color: green;
-        color: white;
     }
 </style>

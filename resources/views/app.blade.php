@@ -10,7 +10,8 @@
 
         <title>Larazillow</title>
 
-        @vite('resources/js/app.js')
+        @routes
+        @vite(['resources/js/app.js', 'resources/css/app.css'])
         @inertiaHead
     </head>
 

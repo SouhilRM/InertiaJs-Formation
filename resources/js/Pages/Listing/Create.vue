@@ -48,9 +48,18 @@
     </form>
 </template>
 
+<script>
+    import MainLayout from "../Layouts/MainLayout.vue";
+
+    export default{
+        layout: MainLayout
+    }
+</script>
+
 <script setup>
     //import { useForm } from '@inertiajs/inertia-vue3' ===> useless
     import { router } from '@inertiajs/vue3'
+    
 
     import { reactive } from "vue"
     //petite remarque pk ne pas avoir utiliser 'ref' au lieu de 'reactive' car il est preferable de le faire quad t'as beaucoup de trucs comme ici ou l'on a plusieurs input donc tu mets tous dans un objet et loreceque tu utilises les objets tu utilises 'reacctive' sinon tu utilises 'ref'
@@ -94,13 +103,7 @@
 
 </script>
 
-<script>
-    import MainLayout from "../Layouts/MainLayout.vue";
 
-    export default{
-        layout: MainLayout,
-    }
-</script>
   
 <style scoped>
     label {
