@@ -48,14 +48,6 @@
     </form>
 </template>
 
-<script>
-    import MainLayout from "../Layouts/MainLayout.vue";
-
-    export default{
-        layout: MainLayout
-    }
-</script>
-
 <script setup>
     //import { useForm } from '@inertiajs/inertia-vue3' ===> useless
     import { router } from '@inertiajs/vue3'

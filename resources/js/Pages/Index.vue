@@ -11,10 +11,6 @@
         <div>
             {{ message }}
         </div>
-
-        <div>
-            {{ text }}
-        </div>
     
 </template>
 
@@ -24,23 +20,4 @@
 
     //pour utiliser la data fournit par laravel via le controller on utilise les "defineProps()"
     defineProps(['message'])
-</script>
-
-<script>
-//tu importe ici au lieu d'en haut pour pouvoir utiliser "layout" qui n'est disponible qu'ici
-import MainLayout from "../Pages/Layouts/MainLayout.vue";
-
-export default{
-
-    //components:{ MainLayout, },
-    
-    //utiliser les "layout" au lieu des componentSlotés permet de garder le meme espace temps entre les components qui utilises le meme layout et on l'a démontrer avec l'utilisation des ref-timer dans le MainLayout
-    layout: MainLayout,
-
-    data(){
-        return{
-            text: 'ceci est un text qui vient de la data() de vue'
-        }
-    }
-}
 </script>
