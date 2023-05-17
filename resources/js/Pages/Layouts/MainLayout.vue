@@ -5,12 +5,6 @@
     <Link :href="route('listing.index')">indexlisting</Link>&nbsp;
     <Link :href="route('listing.create')">Create Listing</Link>
 
-    <!-- <div v-if="flashSuccess" class="success">
-        {{ flashSuccess }}
-    </div> -->
-    <!-- <div v-if="flashSuccess" class="success">
-        {{ flashSuccess }}
-    </div> -->
     <h2>{{ timer }}</h2>
 
     <header>
@@ -32,11 +26,6 @@
     const timer = ref(0)
     setInterval(()=> timer.value++, 1000)
 
-    //pour itiliser les sharing data t'as besoin du 'usePage' noublie pas de l'ipmorter 
-    //on a aussi importer le 'computed' depuis vue juste pour ne pas ecrire une grosse expression à chaque fois que t'as une expression enorme avec de la logique utilise 'computed' comme vue et declare ta logique dans une fonction que tu pourras utiliser plus tard.
-    // const flashSuccess = computed(
-    //     () => usePage().props.flash.success,
-    // )
 </script>
 
 <style scoped>
