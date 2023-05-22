@@ -1,19 +1,24 @@
 <template>
 
-    <Link :href="route('index')">INDEX</Link>&nbsp;
-    <Link :href="route('index.show')">SHOW</Link>&nbsp;
-    <Link :href="route('listing.index')">indexlisting</Link>&nbsp;
-    <Link :href="route('listing.create')">Create Listing</Link>
-
-    <h2>{{ timer }}</h2>
-
-    <header>
-        <h1>ceci est un text qui provient du layout</h1>
+    <header class="border-b border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 w-full">
+        <div class="container mx-auto">
+            <nav class="p-4 flex items-center justify-between">
+                <div class="text-lg font-medium">
+                    <Link :href="route('listing.index')">Listings</Link>
+                </div>
+                <div class="text-xl text-indigo-600 dark:text-indigo-300 font-bold text-center">
+                    <Link :href="route('listing.index')">LaraZillow</Link>
+                </div>
+                <div>
+                    <Link :href="route('listing.create')" class="btn-primary">+ New Listing</Link>
+                </div>
+            </nav>
+        </div>
     </header>
 
-    <div>
-        <slot></slot>
-    </div>
+    <main class="container mx-auto p-4">
+        <slot>Default</slot>
+    </main>
     
 </template>
 
@@ -27,16 +32,3 @@
     setInterval(()=> timer.value++, 1000)
 
 </script>
-
-<style scoped>
-    header{
-        color: red;
-    }
-    div {
-        margin: 2rem auto;
-        max-width: 30rem;
-        border-radius: 12px;
-        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.26);
-        padding: 1rem;
-    }
-</style>
