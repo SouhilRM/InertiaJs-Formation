@@ -45,6 +45,18 @@ class linstingController extends Controller
         //     'street_nr' => $request->street_nr,
         //     'price' => $request->price,
         // ]);
+
+        $request->validate([
+            "beds" => "required|numeric",
+            "baths" => "required|numeric",
+            "area" => "required|numeric",
+            "city" => "required",
+            "street" => "required",
+            "code" => "required",
+            "street_nr" => "required",
+            "price" => "required|numeric",
+        ]);
+
         listing::create($request->all());
 
         return redirect()->route('listing.index')->with('success', 'Listing was created!');
@@ -60,6 +72,17 @@ class linstingController extends Controller
     }
 
     public function update(Request $request, listing $listing){
+
+        $request->validate([
+            "beds" => "required|numeric",
+            "baths" => "required|numeric",
+            "area" => "required|numeric",
+            "city" => "required",
+            "street" => "required",
+            "code" => "required",
+            "street_nr" => "required",
+            "price" => "required|numeric",
+        ]);
         
         $listing->update($request->all());
 
