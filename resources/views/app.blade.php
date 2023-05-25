@@ -9,7 +9,7 @@
         <script defer src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
         <title>Larazillow</title>
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/nprogress/0.2.0/nprogress.min.css" />
+        {{-- plus besoin de ca depuis la nouvelle version d'inertia <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/nprogress/0.2.0/nprogress.min.css" /> --}}
 
         @routes
         @vite(['resources/js/app.js', 'resources/css/app.css'])

@@ -75,7 +75,7 @@
 <script setup>
     
     import { useForm  } from '@inertiajs/vue3';
-    import { sweetAlert } from "../../Comonents/Sweet";
+    import { sweetAlert } from "../../Composables/Sweet";
 
     const props = defineProps(['listing'])
     const form = useForm({

@@ -17,9 +17,49 @@
             </Box>
             <Box>
                 <template #header>
-                    Offer
+                    Monthly Payment
                 </template>
-                Make an Offer
+                <div>
+
+                    <label class="label">Interest rate ({{ interestRate }}%)</label>
+                    <input v-model.number="interestRate"
+                        type="range" min="0.1" max="30" step="0.1"
+                        class="w-full h-4 bg-gray-200 rounded-lg appearance-none cursor-pointer dark:bg-gray-700"
+                    />
+
+                    <label class="label">Duration ({{ duration }} years)</label>
+                    <input v-model.number="duration"
+                        type="range" min="3" max="35" step="1"
+                        class="w-full h-4 bg-gray-200 rounded-lg appearance-none cursor-pointer dark:bg-gray-700"
+                    />
+
+                    <div class="text-gray-600 dark:text-gray-300 mt-2">
+                        <div class="text-gray-400">Your monthly payment</div>
+                        <Price :price="monthlyPayment" class="text-3xl" />
+                    </div>
+
+                    <div class="mt-2 text-gray-500">
+                        <div class="flex justify-between">
+                        <div>Total paid</div>
+                        <div>
+                            <Price :price="totalPaid" class="font-medium" />
+                        </div>
+                        </div>
+                        <div class="flex justify-between">
+                        <div>Principal paid</div>
+                        <div>
+                            <Price :price="listing.price" class="font-medium" />
+                        </div>
+                        </div>
+                        <div class="flex justify-between">
+                        <div>Interest paid</div>
+                        <div>
+                            <Price :price="totalInterest" class="font-medium" />
+                        </div>
+                        </div>
+                    </div>
+                    
+                </div>
             </Box>
         </div>
     </div>
@@ -31,5 +71,13 @@
     import Price from '../../Comonents/Price.vue';
     import Box from '../../Comonents/UI/Box.vue';
 
-    defineProps(['listing'])
+    import { useMonthlyPayment } from '../../Composables/useMonthlyPayment';
+    import { ref } from "vue";
+
+    const interestRate = ref(2.5)
+    const duration = ref(25)
+
+    const props = defineProps(['listing'])
+
+    const { monthlyPayment, totalPaid, totalInterest } =useMonthlyPayment(props.listing.price, interestRate, duration)
 </script>
