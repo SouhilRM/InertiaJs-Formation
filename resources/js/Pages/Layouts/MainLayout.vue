@@ -7,7 +7,7 @@
                     <Link :href="route('listing.index')">Listings</Link>
                 </div>
                 <div class="text-xl text-indigo-600 dark:text-indigo-300 font-bold text-center">
-                    <Link :href="route('listing.index')">LaraZillow</Link>
+                    <Link :href="route('listing.index')">MyProject</Link>
                 </div>
                 <div>
                     <Link :href="route('listing.create')" class="btn-primary">+ New Listing</Link>
@@ -16,19 +16,12 @@
         </div>
     </header>
 
-    <main class="container mx-auto p-4">
+    <main class="container mx-auto p-4 w-full">
         <slot>Default</slot>
     </main>
     
 </template>
 
 <script setup>
-    import { Link, usePage } from '@inertiajs/vue3'
-    import { computed } from 'vue'
-
-    //"ref" permet de declarer un truc en temps reel (variable, nombre, chaine de cra, PAS UN OBJET) ideal pour le temps
-    import { ref } from "vue";
-    const timer = ref(0)
-    setInterval(()=> timer.value++, 1000)
-
+    import { Link } from '@inertiajs/vue3'
 </script>
