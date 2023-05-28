@@ -14,11 +14,11 @@ Route::get('/test', [IndexController::class, 'test'])->name('index.test');
 //les routes des listings
 Route::get('/index', [linstingController::class, 'index'])->name('listing.index');
 Route::get('/listingShow/{listing}', [linstingController::class, 'show'])->name('listing.show');//n'oublie pas l'id listing
-Route::get('/create', [linstingController::class, 'create'])->name('listing.create');
-Route::post('/store', [linstingController::class, 'store'])->name('listing.store');
-Route::get('/listingEdit/{listing}', [linstingController::class, 'edit'])->name('listing.edit');
-Route::post('/update/{listing}', [linstingController::class, 'update'])->name('listing.update');
-Route::delete('/listingDelete/{listing}', [linstingController::class, 'delete'])->name('listing.delete');
+Route::get('/create', [linstingController::class, 'create'])->name('listing.create')->middleware('auth');
+Route::post('/store', [linstingController::class, 'store'])->name('listing.store')->middleware('auth');
+Route::get('/listingEdit/{listing}', [linstingController::class, 'edit'])->name('listing.edit')->middleware('auth');
+Route::post('/update/{listing}', [linstingController::class, 'update'])->name('listing.update')->middleware('auth');
+Route::delete('/listingDelete/{listing}', [linstingController::class, 'delete'])->name('listing.delete')->middleware('auth');
 
 //les routes d'authentification
 Route::get('login', [AuthController::class, 'login'])->name('login');

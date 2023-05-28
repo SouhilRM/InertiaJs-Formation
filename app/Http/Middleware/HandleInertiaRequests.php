@@ -38,9 +38,14 @@ class HandleInertiaRequests extends Middleware
     {
         return array_merge(parent::share($request), [
             //ici d'apres ce que j'ai compris tu va mettre ce qu'on appele des 'sharing data' c'est a dire des données partagées entre plusieurs pages par exemple le nom de l'utilisateur actuel que t'aime bien afficher dans ton entete ou bien les flashs messages comme ci-dessous en gros ca remplace les session::get() de laravel
-            'flash' => [
-                'success' => fn () => $request->session()->get('success')
-            ],
-        ]);
+            // 'flash' => [
+            //     'success' => fn () => $request->session()->get('success')
+            // ],
+
+            //si il y a un utilisateur connecté tu renvoie certaines infos du model user sinon tu ne retourne rien
+            'user' => $request->user()
+                ? $request->user()->only('id', 'name', 'email')
+                : null,
+            ]);
     }
 }
