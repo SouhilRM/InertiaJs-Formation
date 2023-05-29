@@ -16,7 +16,8 @@
                         <Link :href="route('logout')" method="delete" as="button">Logout</Link>
                     </div>
                 </div>
-                <div v-else>
+                <div v-else class="flex items-center gap-2">
+                    <Link :href="route('register')">Register</Link>
                     <Link :href="route('login')">Sign-In</Link>
                 </div>
             </nav>
@@ -33,9 +34,7 @@
     import { Link,usePage } from '@inertiajs/vue3'
     import { computed } from 'vue'
 
-    const page = usePage()
-
     const user = computed(
-        () => page.props.user,
+        () => usePage().props.user,
     )
 </script>

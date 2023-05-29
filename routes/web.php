@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\IndexController;
 use App\Http\Controllers\linstingController;
+use App\Http\Controllers\UserAccountController;
 
 //la phase de test
 Route::get('/', [IndexController::class, 'index'])->name('index');
@@ -22,5 +23,9 @@ Route::delete('/listingDelete/{listing}', [linstingController::class, 'delete'])
 
 //les routes d'authentification
 Route::get('login', [AuthController::class, 'login'])->name('login');
-Route::post('login', [AuthController::class, 'store'])->name('login.store');
+Route::post('login/store', [AuthController::class, 'store'])->name('login.store');
 Route::delete('logout', [AuthController::class, 'logout'])->name('logout');
+
+//les routes register
+Route::get('register', [UserAccountController::class, 'register'])->name('register');
+Route::post('register/store', [UserAccountController::class, 'store'])->name('register.store');
