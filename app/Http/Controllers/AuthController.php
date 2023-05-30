@@ -15,8 +15,6 @@ class AuthController extends Controller
 
     public function store(Request $request)
     {
-        
-
         //pour l'authentification on va la faire manuellement, n'oublie pas d'importer la facade "Auth" en haut
         //on utilise la méthode attempt() que fournit Laravel via la facade Auth qui prends en compte deux parametres
         if(!Auth::attempt(
