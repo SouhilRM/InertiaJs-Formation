@@ -4,10 +4,13 @@ namespace App\Http\Controllers;
 
 use App\Models\listing;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class linstingController extends Controller
 {
     public function index(){
+
+        Auth::user() ? $user = Auth::user() : $user = false;
 
         //soit tu mets "listing::class" soit "$listing" et tu le declare dans les parametres
         $this->authorize('viewAny', listing::class);
@@ -15,7 +18,8 @@ class linstingController extends Controller
         return inertia(
             'Listing/Index',
             [
-                'listings' => listing::all()
+                'listings' => listing::all(),
+                'can' => $user,
             ]
         );
     }
@@ -130,7 +134,7 @@ class linstingController extends Controller
 
     public function delete(listing $listing){
 
-        $this->authorize('update', $listing);
+        $this->authorize('delete', $listing);
 
         $listing->delete();
         return redirect()->back();

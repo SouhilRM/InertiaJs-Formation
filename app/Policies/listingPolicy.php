@@ -8,6 +8,22 @@ use Illuminate\Auth\Access\Response;
 
 class listingPolicy
 {
+    // "?User" veut dire que l'objet User est optionnel parcequ'on peut tres bien avoir un utilisateur non connecter qui ne possede donc pas ce model, c'est pour cela qu'on n'utilisera pas le '?User' dans les action ou il faut absolument etre connecter comme la suppression ou la modification, mais qu'on poura l'utiliser dans les action accessible par tout le monde comme visionner tous les listings ou un listing en particulier
+
+    public function before(?User $user, $ability) //le mot clé "before" est important ici !!
+    {
+        //en PHP.8 tu peux utiliser le ? comme ca "$user?->is_admin" cela signifie que si le $user est null càd que personne n'est conneter ( c'est pour ca qu'on a mis ?User dans les parametres ) cela ne cosera pas de problèmes
+        if ($user?->is_admin /*&& $ability === 'update'*/) {
+            return true;
+        }
+        //cela signifie que si l'utilisateur connécté est un admin alors il poura FAIRE tous ce qu'il voudra
+
+        // if ($user?->is_admin && $ability === 'update') {
+        //     return true;
+        // }
+        // cela signifie que si l'utilisateur connécté est un admin alors il poura modifier tous ce qu'il voudra
+    }
+
     /**
      * Determine whether the user can view any models.
      */

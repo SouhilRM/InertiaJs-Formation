@@ -20,12 +20,23 @@ class DatabaseSeeder extends Seeder
         User::factory()->create([
             'name' => 'Test User',
             'email' => 'test@example.com',
-            'password' => 'password' //plus besoin de le hacher le mutators/accessors s'en charge automatiquement pour nous
+            'password' => 'password', //plus besoin de le hacher le mutators/accessors s'en charge automatiquement pour nous
+            'is_admin' => true,
         ]);
 
-        \App\Models\listing::factory(20)->create([
+        \App\Models\User::factory()->create([
+            'name' => 'Test2 User2',
+            'email' => 'test2@example.com',
+            'password' => 'password',
+        ]);
+
+        \App\Models\listing::factory(10)->create([
             'by_user_id' => 1,
-        ]);//ici on va en generer 20
+        ]);
+
+        \App\Models\listing::factory(10)->create([
+            'by_user_id' => 2,
+        ]);
     }
 }
 // pour seed la commende ==> php artisan db:seed

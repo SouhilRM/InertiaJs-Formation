@@ -21,12 +21,12 @@
         </Link>
         </div>
         <div>
-        <Link :href="route('listing.edit', {listing: listing.id})">
+        <Link v-if="authorizationDisplay(can, listing.by_user_id)" :href="route('listing.edit', {listing: listing.id})">
             Edit
         </Link>
         </div>
         <div>
-        <button @click="confirmationDelete(listing.id)">
+        <button v-if="authorizationDisplay(can, listing.by_user_id)" @click="confirmationDelete(listing.id)">
             Delete
         </button>
         </div>
@@ -34,16 +34,21 @@
 </template>
 
 <script setup>
+    
+    import { Link,router } from '@inertiajs/vue3'
+
     import { useMonthlyPayment } from '../../../../Composables/useMonthlyPayment'
     import { sweetConfirm,sweetAlert } from "../../../../Composables/Sweet"
-    import { Link,router } from '@inertiajs/vue3'
     import ListingAddress from '../../../../Comonents/ListingAddress.vue'
     import Box from '../../../../Comonents/UI/Box.vue'
     import ListingSpace from '../../../../Comonents/ListingSpace.vue'
     import Price from '../../../../Comonents/Price.vue'
     
+    const props = defineProps({listing: Object, can: [Object,Boolean]})
 
-    const props = defineProps({listing: Object})
+    const authorizationDisplay = (user, listing_by_user_id) => {
+        return ( user.is_admin === 1 || user.id === listing_by_user_id )
+    }
 
     const { monthlyPayment } = useMonthlyPayment(
         props.listing.price, 2.5, 25,
