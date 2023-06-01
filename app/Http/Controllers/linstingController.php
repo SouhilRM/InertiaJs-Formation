@@ -18,7 +18,7 @@ class linstingController extends Controller
         return inertia(
             'Listing/Index',
             [
-                'listings' => listing::all(),
+                'listings' => listing::orderByDesc('created_at')->paginate(15),//paginate nous donne accés à l'attribut "link" qui permet de naviguer entre les pages
                 'can' => $user,
             ]
         );
