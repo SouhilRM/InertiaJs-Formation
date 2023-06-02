@@ -8,17 +8,31 @@ use Illuminate\Support\Facades\Auth;
 
 class linstingController extends Controller
 {
-    public function index(){
+    public function index(Request $request){
 
-        Auth::user() ? $user = Auth::user() : $user = false;
+        $user = Auth::user() ?? false;//Auth::user() ? $user = Auth::user() : $user = false; same thing
 
         //soit tu mets "listing::class" soit "$listing" et tu le declare dans les parametres
         $this->authorize('viewAny', listing::class);
 
+        //on va stocker les filtres en cours dans un props pour les conserver si jamais l'utilisateur vont envoyé un lien qui contiens le meme filtre de recherche; bien sur notre $filters va aussi servir pour build notre scopeFilter
+        $filters = $request->only([
+            'priceFrom', 'priceTo', 'beds', 'baths', 'areaFrom', 'areaTo'
+        ]);
+
         return inertia(
             'Listing/Index',
             [
-                'listings' => listing::orderByDesc('created_at')->paginate(15),//paginate nous donne accés à l'attribut "link" qui permet de naviguer entre les pages
+                'filters' => $filters,
+
+                'listings' => listing::latest()
+                
+                ->filter($filters)
+
+                ->paginate(15)//paginate nous donne accés à l'attribut "link" qui permet de naviguer entre les pages
+
+                ->withQueryString(),//permet de garder le filtre en cours de pagination
+                
                 'can' => $user,
             ]
         );
