@@ -145,12 +145,4 @@ class linstingController extends Controller
 
         return redirect()->route('listing.index');
     }
-
-    public function delete(listing $listing){
-
-        $this->authorize('delete', $listing);
-
-        $listing->delete();
-        return redirect()->back();
-    }
 }

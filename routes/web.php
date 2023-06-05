@@ -1,11 +1,11 @@
 <?php
 
-use Inertia\Inertia;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\IndexController;
 use App\Http\Controllers\linstingController;
 use App\Http\Controllers\UserAccountController;
+use App\Http\Controllers\RealtorListingController;
 
 //la phase de test
 Route::get('/', [IndexController::class, 'index'])->name('index');
@@ -19,7 +19,7 @@ Route::get('/create', [linstingController::class, 'create'])->name('listing.crea
 Route::post('/store', [linstingController::class, 'store'])->name('listing.store')->middleware('auth');
 Route::get('/listingEdit/{listing}', [linstingController::class, 'edit'])->name('listing.edit')->middleware('auth');
 Route::post('/update/{listing}', [linstingController::class, 'update'])->name('listing.update')->middleware('auth');
-Route::delete('/listingDelete/{listing}', [linstingController::class, 'delete'])->name('listing.delete')->middleware('auth');
+//Route::delete('/listingDelete/{listing}', [linstingController::class, 'delete'])->name('listing.delete')->middleware('auth');
 
 //les routes d'authentification
 Route::get('login', [AuthController::class, 'login'])->name('login');
@@ -29,3 +29,9 @@ Route::delete('logout', [AuthController::class, 'logout'])->name('logout');
 //les routes register
 Route::get('register', [UserAccountController::class, 'register'])->name('register');
 Route::post('register/store', [UserAccountController::class, 'store'])->name('register.store');
+
+//les routes de l'agent immobilier
+Route::prefix('realtor')->middleware('auth')->group(function () {
+    Route::get('index', [RealtorListingController::class, 'index'])->name('realtor.index');
+    Route::delete('listing/delete/{listing}', [RealtorListingController::class, 'delete'])->name('realtor.listin.delete');
+});

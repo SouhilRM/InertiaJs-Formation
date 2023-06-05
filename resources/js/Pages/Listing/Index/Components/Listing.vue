@@ -25,20 +25,14 @@
             Edit
         </Link>
         </div>
-        <div>
-        <button v-if="authorizationDisplay(can, listing.by_user_id)" @click="confirmationDelete(listing.id)">
-            Delete
-        </button>
-        </div>
     </Box>
 </template>
 
 <script setup>
     
-    import { Link,router } from '@inertiajs/vue3'
+    import { Link } from '@inertiajs/vue3'
 
     import { useMonthlyPayment } from '../../../../Composables/useMonthlyPayment'
-    import { sweetConfirm,sweetAlert } from "../../../../Composables/Sweet"
     
     import ListingAddress from '../../../../Comonents/ListingAddress.vue'
     import Box from '../../../../Comonents/UI/Box.vue'
@@ -54,25 +48,4 @@
     const { monthlyPayment } = useMonthlyPayment(
         props.listing.price, 2.5, 25,
     )
-
-    const confirmationDelete = (id)=>{
-        sweetConfirm("Etes-vous sur de vouloir retirer cet étudiant ?",()=>deleteEtudiant(id))
-    }
-
-    const deleteEtudiant = (id)=>{
-        router.delete(
-            route('listing.delete', {listing: id}),
-            {
-                onSuccess: (page) =>{
-                    console.log('ca marche !!');
-                    sweetAlert('success',"Etudiant retiré avec succès.")
-                },
-
-                onError: (errors) => {
-                    //console.log(errors);
-                    sweetAlert('error',errors.message)
-                }
-            }
-        )
-    }
 </script>
