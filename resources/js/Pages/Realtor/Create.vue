@@ -1,5 +1,5 @@
 <template>
-    <form @submit.prevent="update">
+    <form @submit.prevent="create">
       <div class="grid grid-cols-6 gap-4">
         <div class="col-span-2">
           <label class="label">Beds</label>
@@ -66,7 +66,7 @@
         </div>
   
         <div class="col-span-6">
-          <button type="submit" class="btn-primary">Update</button>
+          <button type="submit" class="btn-primary">Create</button>
         </div>
       </div>
     </form>
@@ -76,25 +76,24 @@
     
     import { useForm  } from '@inertiajs/vue3';
     import { sweetAlert } from "../../Composables/Sweet";
-
-    const props = defineProps(['listing'])
+    
     const form = useForm({
-        beds: props.listing.beds,
-        baths: props.listing.baths,
-        area: props.listing.area,
-        city: props.listing.city,
-        street: props.listing.street,
-        code: props.listing.code,
-        street_nr: props.listing.street_nr,
-        price: props.listing.price,
+        beds: 0,
+        baths: 0,
+        area: 0,
+        city: null,
+        street: null,
+        code: null,
+        street_nr: null,
+        price: 0,
     })
 
-    function update() {
-          form.post(
-          route('listing.update', { listing: props.listing.id }),
+    function create() {
+        form.post(
+          route('realtor.listing.store'),
           {
             onSuccess: (page) =>{
-              sweetAlert('success',"listing updated successfully.")
+              sweetAlert('success',"listing created successfully.")
             },
             onError: (errors) => {
               //console.log(errors);
@@ -103,5 +102,4 @@
           }
         )
     }
-
 </script>

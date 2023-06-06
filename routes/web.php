@@ -14,12 +14,7 @@ Route::get('/test', [IndexController::class, 'test'])->name('index.test');
 
 //les routes des listings
 Route::get('/index', [linstingController::class, 'index'])->name('listing.index');
-Route::get('/listingShow/{listing}', [linstingController::class, 'show'])->name('listing.show');//n'oublie pas l'id listing
-Route::get('/create', [linstingController::class, 'create'])->name('listing.create')->middleware('auth');
-Route::post('/store', [linstingController::class, 'store'])->name('listing.store')->middleware('auth');
-Route::get('/listingEdit/{listing}', [linstingController::class, 'edit'])->name('listing.edit')->middleware('auth');
-Route::post('/update/{listing}', [linstingController::class, 'update'])->name('listing.update')->middleware('auth');
-//Route::delete('/listingDelete/{listing}', [linstingController::class, 'delete'])->name('listing.delete')->middleware('auth');
+Route::get('/listingShow/{listing}', [linstingController::class, 'show'])->name('listing.show');
 
 //les routes d'authentification
 Route::get('login', [AuthController::class, 'login'])->name('login');
@@ -33,5 +28,17 @@ Route::post('register/store', [UserAccountController::class, 'store'])->name('re
 //les routes de l'agent immobilier
 Route::prefix('realtor')->middleware('auth')->group(function () {
     Route::get('index', [RealtorListingController::class, 'index'])->name('realtor.index');
-    Route::delete('listing/delete/{listing}', [RealtorListingController::class, 'delete'])->name('realtor.listin.delete');
+
+    Route::delete('listing/delete/{listing}', [RealtorListingController::class, 'delete'])->name('realtor.listing.delete');
+
+    Route::get('/listingEdit/{listing}', [RealtorListingController::class, 'edit'])->name('realtor.listing.edit');
+
+    Route::post('/listingUpdate/{listing}', [RealtorListingController::class, 'update'])->name('realtor.listing.update');
+
+    Route::get('/listingCreate', [RealtorListingController::class, 'create'])->name('realtor.listing.create');
+
+    Route::post('/listingStore', [RealtorListingController::class, 'store'])->name('realtor.listing.store');
+
+    //n'oublie pas le "->withTrashed()" dans ta route sinon il ne va pas trouver le model
+    Route::put('listingRestore/{listing}', [RealtorListingController::class, 'toto'])->withTrashed()->name('realtor.listing.restore');
 });

@@ -1,7 +1,7 @@
 <template>
     <Filters :filters="filters" />
     <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4">
-      <Listing v-for="listing in listings.data" :key="listing.id" :can="can" :listing="listing"></Listing>
+      <Listing v-for="listing in listings.data" :key="listing.id" :listing="listing"></Listing>
     </div>
 
     <!-- le "links" ici c'est un attribut de l'objet listings qu'on a passé grace à la pagination via le controlleur, attention il ne s'agit pas du "Link" de inertia -->
@@ -17,7 +17,7 @@
 
   defineProps({
     listings: Object,
-    can: [Object,Boolean],
+    //can: [Object,Boolean],
     filters: Object,
   })
 </script>

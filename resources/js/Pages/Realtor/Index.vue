@@ -6,9 +6,9 @@
     </section>
 
     <section class="grid grid-cols-1 lg:grid-cols-2 gap-2">
-        <Box v-for="listing in listings" :key="listing.id">
+        <Box v-for="listing in listings.data" :key="listing.id" :class="{ 'border-dashed': listing.deleted_at }">
             <div class="flex flex-col md:flex-row gap-2 md:items-center justify-between">
-                <div>
+                <div :class="{ 'opacity-25': listing.deleted_at }">
                     <div class="xl:flex items-center gap-2">
                     <Price :price="listing.price" class="text-2xl font-medium" />
                     <ListingSpace :listing="listing" />
@@ -18,12 +18,40 @@
                 </div>
                 
                 <div class="flex items-center gap-1 text-gray-600 dark:text-gray-300">
-                    <!-- <Link class="btn-outline text-xs font-medium">Preview</Link>
-                    <Link class="btn-outline text-xs font-medium">Edit</Link> -->
-                    <button class="btn-outline text-xs font-medium" @click="confirmationDelete(listing.id)">Delete</button>
+                    <a
+                        v-if="!listing.deleted_at"
+                        class="btn-outline text-xs font-medium" 
+                        :href="route('listing.show', { listing: listing.id })"
+                        target="_blank"
+                    >Preview</a>
+
+                    <Link 
+                        v-if="!listing.deleted_at" 
+                        class="btn-outline text-xs font-medium" 
+                        :href="route('realtor.listing.edit', { listing: listing.id })"
+                    >Edit</Link>
+
+                    <button
+                        v-if="!listing.deleted_at" 
+                        class="btn-outline text-xs font-medium" 
+                        @click="confirmationDelete(listing.id)"
+                    >Delete</button>
+
+                    <Link
+                        v-if="listing.deleted_at"
+                        class="btn-outline text-xs font-medium" 
+                        :href="route('realtor.listing.restore', { listing: listing.id })" 
+                        as="button" 
+                        method="put"
+                        @click="notif"
+                    >Restore</Link>
                 </div>
             </div>
         </Box>
+    </section>
+
+    <section v-if="listings.data.length" class="w-full flex justify-center mt-4 mb-4">
+        <Pagination :links="listings.links" />
     </section>
 </template>
 
@@ -37,9 +65,10 @@
     import Price from '../../Comonents/Price.vue'
     import Box from '../../Comonents/UI/Box.vue'
     import RealtorFilters from './Index/Components/RealtorFilters.vue';
+    import Pagination from '../../Comonents/UI/Pagination.vue'
 
     defineProps({
-        listings: Array,
+        listings: Object,
         filters: Object,
     })
 
@@ -49,7 +78,7 @@
 
     const deleteListing = (id)=>{
         router.delete(
-            route('realtor.listin.delete', {listing: id}),
+            route('realtor.listing.delete', {listing: id}),
             {
                 onSuccess: (page) =>{
                     sweetAlert('success',"listing moved to trash successfully.")
@@ -61,5 +90,9 @@
                 }
             }
         )
+    }
+
+    const notif = ()=>{
+        sweetAlert('success',"listing restored successfully.")
     }
 </script>
