@@ -11,7 +11,12 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 class listing extends Model
 {
     use HasFactory, SoftDeletes;
+
     protected $guarded = [];
+
+    protected $sortable = [
+        'price', 'created_at'
+    ];
 
     public function owner(): BelongsTo
     {
@@ -42,6 +47,13 @@ class listing extends Model
         )->when(
             $filters['areaTo'] ?? false,
             fn ($query, $value) => $query->where('area', '<=', $value)
+        )->when(
+            $filters['deleted'] ?? false,
+            fn ($query) => $query->withTrashed()
+        )->when(
+            $filters['by'] ?? false,
+            fn ($query, $value) =>
+            !in_array($value, $this->sortable) ? $query : $query->orderBy($value, $filters['order'] ?? 'desc')
         );
     }
 }
