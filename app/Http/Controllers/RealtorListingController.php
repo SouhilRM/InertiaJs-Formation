@@ -147,7 +147,7 @@ class RealtorListingController extends Controller
         return redirect()->route('listing.index');
     }
 
-    public function toto(listing $listing)
+    public function restore(listing $listing)
     {
         $listing->restore();
 

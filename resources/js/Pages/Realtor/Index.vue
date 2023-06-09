@@ -16,36 +16,41 @@
 
                     <ListingAddress :listing="listing" />
                 </div>
-                
-                <div class="flex items-center gap-1 text-gray-600 dark:text-gray-300">
-                    <a
-                        v-if="!listing.deleted_at"
-                        class="btn-outline text-xs font-medium" 
-                        :href="route('listing.show', { listing: listing.id })"
-                        target="_blank"
-                    >Preview</a>
+                <section>
+                    <div class="flex items-center gap-1 text-gray-600 dark:text-gray-300">
+                        <a
+                            v-if="!listing.deleted_at"
+                            class="btn-outline text-xs font-medium" 
+                            :href="route('listing.show', { listing: listing.id })"
+                            target="_blank"
+                        >Preview</a>
 
-                    <Link 
-                        v-if="!listing.deleted_at" 
-                        class="btn-outline text-xs font-medium" 
-                        :href="route('realtor.listing.edit', { listing: listing.id })"
-                    >Edit</Link>
+                        <Link 
+                            v-if="!listing.deleted_at" 
+                            class="btn-outline text-xs font-medium" 
+                            :href="route('realtor.listing.edit', { listing: listing.id })"
+                        >Edit</Link>
 
-                    <button
-                        v-if="!listing.deleted_at" 
-                        class="btn-outline text-xs font-medium" 
-                        @click="confirmationDelete(listing.id)"
-                    >Delete</button>
+                        <button
+                            v-if="!listing.deleted_at" 
+                            class="btn-outline text-xs font-medium" 
+                            @click="confirmationDelete(listing.id)"
+                        >Delete</button>
 
-                    <Link
-                        v-if="listing.deleted_at"
-                        class="btn-outline text-xs font-medium" 
-                        :href="route('realtor.listing.restore', { listing: listing.id })" 
-                        as="button" 
-                        method="put"
-                        @click="notif"
-                    >Restore</Link>
-                </div>
+                        <Link
+                            v-if="listing.deleted_at"
+                            class="btn-outline text-xs font-medium" 
+                            :href="route('realtor.listing.restore', { listing: listing.id })" 
+                            as="button" 
+                            method="put"
+                            @click="notif"
+                        >Restore</Link>
+                    </div>
+
+                    <div class="mt-2">
+                        <Link :href="route('realtor.listing.image.create', { listing: listing.id })" class="block w-full btn-outline text-xs font-medium text-center">Images</Link>
+                    </div>
+                </section>
             </div>
         </Box>
     </section>

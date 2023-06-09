@@ -6,6 +6,7 @@ use App\Http\Controllers\IndexController;
 use App\Http\Controllers\linstingController;
 use App\Http\Controllers\UserAccountController;
 use App\Http\Controllers\RealtorListingController;
+use App\Http\Controllers\RealtorListingImageController;
 
 //la phase de test
 Route::get('/', [IndexController::class, 'index'])->name('index');
@@ -40,5 +41,15 @@ Route::prefix('realtor')->middleware('auth')->group(function () {
     Route::post('/listingStore', [RealtorListingController::class, 'store'])->name('realtor.listing.store');
 
     //n'oublie pas le "->withTrashed()" dans ta route sinon il ne va pas trouver le model
-    Route::put('listingRestore/{listing}', [RealtorListingController::class, 'toto'])->withTrashed()->name('realtor.listing.restore');
+    Route::put('listingRestore/{listing}', [RealtorListingController::class, 'restore'])->withTrashed()->name('realtor.listing.restore');
+
+});
+
+//les routes d'upload d'images
+Route::prefix('realtor')->middleware('auth')->group(function () {
+
+    Route::get('listingRestore/images/create/{listing}', [RealtorListingImageController::class, 'create'])->name('realtor.listing.image.create');
+
+    Route::post('listingRestore/images/store/{listing}', [RealtorListingImageController::class, 'store'])->name('realtor.listing.image.store');
+
 });
