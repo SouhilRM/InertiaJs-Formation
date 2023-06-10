@@ -5,11 +5,15 @@ namespace App\Http\Controllers;
 use App\Models\listing;
 use App\Models\ListingImage;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class RealtorListingImageController extends Controller
 {
     public function create(listing $listing)
     {
+        //Trés important pour pouvoir utliser la relationShip entre les deux tables
+        $listing->load(['images']);
+
         return inertia(
             'Realtor/ListingImage/Create',
             [
@@ -22,6 +26,12 @@ class RealtorListingImageController extends Controller
     {
         if ($request->hasFile('images')) {
 
+            $request->validate([
+                'images.*' => 'mimes:jpg,png,jpeg,webp|max:5000'
+            ],[
+                'images.*.mimes' => 'The file should be in one of the formats: jpg, png, jpeg, webp'
+            ]);
+
             foreach ($request->file('images') as $file) {
                 $path = $file->store('images', 'public');
 
@@ -30,6 +40,15 @@ class RealtorListingImageController extends Controller
                 ]));
             }
         }
+
+        return redirect()->back();
+    }
+
+    public function destroy(ListingImage $image)
+    {
+    
+        Storage::disk('public')->delete($image->filename);
+        $image->delete();
 
         return redirect()->back();
     }

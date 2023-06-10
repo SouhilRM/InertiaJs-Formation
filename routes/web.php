@@ -52,4 +52,6 @@ Route::prefix('realtor')->middleware('auth')->group(function () {
 
     Route::post('listingRestore/images/store/{listing}', [RealtorListingImageController::class, 'store'])->name('realtor.listing.image.store');
 
+    Route::delete('listingRestore/images/destroy/{image}', [RealtorListingImageController::class, 'destroy'])->name('realtor.listing.image.destroy');
+  
 });

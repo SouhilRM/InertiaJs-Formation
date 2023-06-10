@@ -50,6 +50,9 @@ class linstingController extends Controller
         
         $this->authorize('view', $listing);
 
+        //Trés important pour pouvoir utliser la relationShip entre les deux tables
+        $listing->load(['images']);
+
         //$listing = listing::findOrFail($id); on fesait comme ca precedement !!
         return inertia(
             'Listing/Show',
