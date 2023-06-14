@@ -57,8 +57,16 @@ class User extends Authenticatable
     public function listings(): HasMany
     {
         return $this->hasMany(
-            \App\Models\Listing::class,
+            listing::class,     //\App\Models\listing::class, c'est la meme chose mais vu qu'ils sont dans le meme dossier donc tu n'as pas besoin de preciser le chemon en debut
             'by_user_id'
+        );
+    }
+
+    public function offers(): HasMany
+    {
+        return $this->hasMany(
+            Offer::class,
+            'bidder_id'
         );
     }
 }

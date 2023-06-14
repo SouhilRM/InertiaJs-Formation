@@ -65,6 +65,7 @@
                     
                 </div>
             </Box>
+            <MakeOffer :listing-id="listing.id" :price="listing.price" />
         </div>
     </div>
 </template>
@@ -74,6 +75,7 @@
     import ListingSpace from '../../Comonents/ListingSpace.vue';
     import Price from '../../Comonents/Price.vue';
     import Box from '../../Comonents/UI/Box.vue';
+    import MakeOffer from './Show/Components/MakeOffer.vue';
 
     import { useMonthlyPayment } from '../../Composables/useMonthlyPayment';
     import { ref } from "vue";
