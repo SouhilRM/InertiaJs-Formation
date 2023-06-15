@@ -119,7 +119,7 @@ class RealtorListingController extends Controller
         //     'price' => 'required|integer|min:1|max:20000000',
         // ]);
         // listing::create([ //la difference entre insert et create c'est que create donne des valeurs aux champs "created_at" et "updated_at"
-        //     'by_user_id' => Auth::user()->id, ou $request->user(), c'est la meme chose //renvoite l'id du user courent
+        //     'by_user_id' => Auth::user()->id, ou $request->user(), c'est la meme chose //renvoie l'id du user courent
         //     'beds' => $request->beds,
         //     'baths' => $request->baths,
         //     'area' => $request->area,
@@ -130,19 +130,36 @@ class RealtorListingController extends Controller
         //     'price' => $request->price,
         // ]);
         
+
         //$request->user() === Auth::user() c'est la meme chose !!!
         //Tous ceci peux etre plus simplifier vu qu'on a une relationship
-        $request->user()->listings()->create(
-            $request->validate([
-                'beds' => 'required|integer|min:0|max:20',
-                'baths' => 'required|integer|min:0|max:20',
-                'area' => 'required|integer|min:15|max:1500',
-                'city' => 'required',
-                'code' => 'required',
-                'street' => 'required',
-                'street_nr' => 'required|min:1|max:1000',
-                'price' => 'required|integer|min:1|max:20000000',
-            ])
+        // $request->user()->listings()->create(
+        //     $request->validate([
+        //         'beds' => 'required|integer|min:0|max:20',
+        //         'baths' => 'required|integer|min:0|max:20',
+        //         'area' => 'required|integer|min:15|max:1500',
+        //         'city' => 'required',
+        //         'code' => 'required',
+        //         'street' => 'required',
+        //         'street_nr' => 'required|min:1|max:1000',
+        //         'price' => 'required|integer|min:1|max:20000000',
+        //     ])
+        // );
+
+        //tu peux aussi utiliser la methode save() qui est meilleure ici vue qu'on veut éffectuer une validation avant l'insertion dans la BDD mais create() aussi est valable comme au dessus
+        $request->user()->listings()->save(
+            listing::make(
+                $request->validate([
+                    'beds' => 'required|integer|min:0|max:20',
+                    'baths' => 'required|integer|min:0|max:20',
+                    'area' => 'required|integer|min:15|max:1500',
+                    'city' => 'required',
+                    'code' => 'required',
+                    'street' => 'required',
+                    'street_nr' => 'required|min:1|max:1000',
+                    'price' => 'required|integer|min:1|max:20000000',
+                ])
+            )
         );
         
         return redirect()->route('listing.index');
