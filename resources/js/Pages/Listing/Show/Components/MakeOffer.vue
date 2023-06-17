@@ -31,9 +31,10 @@
 
 <script setup>
     
-    import { useForm,usePage } from '@inertiajs/vue3'
-    import { computed } from 'vue'
+    import { useForm } from '@inertiajs/vue3'
+    import { computed, watch } from 'vue'
     import { sweetAlert } from "../../../../Composables/Sweet";
+    import { debounce } from 'lodash'
 
     import Box from '../../../../Comonents/UI/Box.vue';
     import Price from '../../../../Comonents/Price.vue';
@@ -62,6 +63,16 @@
                 sweetAlert('error',"An error has occurred.")
             }
         }
+    )
+
+    const emit = defineEmits(['offerUpdated'])
+
+    watch(
+        ()=>form.amount, 
+        debounce(
+            (value)=>emit('offerUpdated',value),
+            200
+        )
     )
     
 </script>
