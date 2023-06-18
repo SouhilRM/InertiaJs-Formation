@@ -35,6 +35,7 @@ class RealtorListingController extends Controller
                 ->listings()
                 ->filter($filters)
                 ->withCount('images')
+                ->withCount('offers')
                 ->paginate(10)
                 ->withQueryString()
             ]

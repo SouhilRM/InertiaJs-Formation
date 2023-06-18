@@ -18,4 +18,12 @@ class ListingOfferController extends Controller
         );
         return redirect()->back();
     }
+
+    public function show(Listing $listing)
+    {
+        return inertia(
+            'Realtor/Show',
+            ['listing' => $listing->load('offers')]
+        );
+    }
 }

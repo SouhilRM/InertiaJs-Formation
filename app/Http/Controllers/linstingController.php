@@ -53,11 +53,16 @@ class linstingController extends Controller
         //Trés important pour pouvoir utliser la relationShip entre les deux tables
         $listing->load(['images']);
 
+        $offerMade = !Auth::user() ? null //si le user n'est pas co ca  renvoie null
+        : $listing->offers()->byMe()->first(); //ou ->get() ca marche aussi
+        //le ->byMe() est une scopedQuerry qu'on a configuré dans le model offer
+
         //$listing = listing::findOrFail($id); on fesait comme ca precedement !!
         return inertia(
             'Listing/Show',
             [
-                'listing' => $listing
+                'listing' => $listing,
+                'offerMade' => $offerMade
             ]
         );
     }

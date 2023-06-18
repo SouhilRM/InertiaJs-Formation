@@ -59,3 +59,4 @@ Route::prefix('realtor')->middleware('auth')->group(function () {
 
 //les routes des offres
 Route::post('listingOffer/store/{listing}', [ListingOfferController::class, 'store'])->name('listing.offer.store');
+Route::get('listingOffer/show/{listing}', [ListingOfferController::class, 'show'])->name('listing.offer.show');
