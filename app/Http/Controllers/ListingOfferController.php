@@ -19,11 +19,15 @@ class ListingOfferController extends Controller
         return redirect()->back();
     }
 
-    public function show(Listing $listing)
+    public function show(listing $listing)
     {
+        //dd($listing->offers[0]->bidder->email);
+        //$offres = $listing->load('offers')->offers->load('bidder');
         return inertia(
-            'Realtor/Show',
-            ['listing' => $listing->load('offers')]
+            'Realtor/Show', 
+            
+            //load('offers') permet d'acceder aux offres liées à ton listings spécifique car n'oublie pas que chaque listings à plusieurs offres ( vas re-check le model listing ); et load('offers.bidder') permet d'acceder l'utilisateur propre à ton offre
+            ['listing' => $listing->load('offers','offers.bidder')]
         );
     }
 }

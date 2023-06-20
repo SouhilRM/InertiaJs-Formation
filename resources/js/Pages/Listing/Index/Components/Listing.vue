@@ -31,7 +31,6 @@
 <script setup>
     
     import { Link } from '@inertiajs/vue3'
-
     import { useMonthlyPayment } from '../../../../Composables/useMonthlyPayment'
     
     import ListingAddress from '../../../../Comonents/ListingAddress.vue'

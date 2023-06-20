@@ -37,14 +37,11 @@
                             @click="confirmationDelete(listing.id)"
                         >Delete</button>
 
-                        <Link
+                        <button
                             v-if="listing.deleted_at"
-                            class="btn-outline text-xs font-medium" 
-                            :href="route('realtor.listing.restore', { listing: listing.id })" 
-                            as="button" 
-                            method="put"
-                            @click="notif"
-                        >Restore</Link>
+                            class="btn-outline text-xs font-medium"  
+                            @click="notif(listing.id)"
+                        >Restore</button>
                     </div>
 
                     <div class="mt-2">
@@ -106,7 +103,18 @@
         )
     }
 
-    const notif = ()=>{
-        sweetAlert('success',"listing restored successfully.")
+    const notif = (id)=>{
+        router.visit(
+            route('realtor.listing.restore', id),
+            {
+                method: 'put',
+                onSuccess: () => {
+                    sweetAlert('success',"Listing successfully restored.")
+                },
+                onError: (errors) => {
+                    sweetAlert('error',"An error has occurred.")
+                }
+            }
+        )
     }
 </script>

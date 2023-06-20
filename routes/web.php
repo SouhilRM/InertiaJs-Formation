@@ -8,6 +8,7 @@ use App\Http\Controllers\UserAccountController;
 use App\Http\Controllers\ListingOfferController;
 use App\Http\Controllers\RealtorListingController;
 use App\Http\Controllers\RealtorListingImageController;
+use App\Http\Controllers\RealtorListingAcceptOfferCintroller;
 
 //la phase de test
 Route::get('/', [IndexController::class, 'index'])->name('index');
@@ -58,5 +59,7 @@ Route::prefix('realtor')->middleware('auth')->group(function () {
 });
 
 //les routes des offres
-Route::post('listingOffer/store/{listing}', [ListingOfferController::class, 'store'])->name('listing.offer.store');
-Route::get('listingOffer/show/{listing}', [ListingOfferController::class, 'show'])->name('listing.offer.show');
+Route::post('listingOffer/store/{listing}', [ListingOfferController::class, 'store'])->name('listing.offer.store')->middleware('auth');
+Route::get('listingOffer/show/{listing}', [ListingOfferController::class, 'show'])->name('listing.offer.show')->middleware('auth');
+
+Route::put('offer/{offer}/accept', RealtorListingAcceptOfferCintroller::class)->name('offer.accept')->middleware('auth');

@@ -88,11 +88,11 @@
     import Price from '../../Comonents/Price.vue';
     import Box from '../../Comonents/UI/Box.vue';
     import MakeOffer from './Show/Components/MakeOffer.vue';
+    import OfferMade from './Show/Components/OfferMade.vue';
 
     import { useMonthlyPayment } from '../../Composables/useMonthlyPayment';
     import { ref,computed } from "vue";
     import { usePage } from '@inertiajs/vue3'
-    import OfferMade from './Show/Components/OfferMade.vue';
 
     const interestRate = ref(2.5)
     const duration = ref(25)
