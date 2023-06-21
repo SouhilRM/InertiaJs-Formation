@@ -4,7 +4,7 @@
         <template #header>
             Offer #{{ offer.id }} 
             <span v-if="offer.accepted_at" class="dark:bg-green-900 bg-green-200 text-green-900 p-1 rounded-md uppercase ml-1">
-                accepeted
+                accepted
             </span>
         </template>
 
@@ -25,7 +25,7 @@
                 </div>
             </div>
             <div>
-                <button v-if="notSold" class="btn-outline text-xs font-medium" @click="Accept(offer.id)">
+                <button v-if="!isSold" class="btn-outline text-xs font-medium" @click="Accept(offer.id)">
                     Accept
                 </button>
             </div>
@@ -45,6 +45,7 @@
     const props = defineProps({
         offer: Object,
         listingPrice: Number,
+        isSold: Boolean,
     })
     const difference = computed(
         () => props.offer.amount - props.listingPrice,
@@ -67,8 +68,4 @@
             }
         )
     }
-
-    const notSold = computed(
-        () => !props.offer.accepted_at && !props.offer.rejected_at,
-    )
 </script>

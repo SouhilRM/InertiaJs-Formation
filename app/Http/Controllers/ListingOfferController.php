@@ -9,6 +9,7 @@ use Illuminate\Http\Request;
 class ListingOfferController extends Controller
 {
     public function store(listing $listing, Request $request){
+        $this->authorize('view', $listing);
         $listing->offers()->save(
             Offer::make(
                 $request->validate([
@@ -21,6 +22,7 @@ class ListingOfferController extends Controller
 
     public function show(listing $listing)
     {
+        //dd($listing->offers());
         //dd($listing->offers[0]->bidder->email);
         //$offres = $listing->load('offers')->offers->load('bidder');
         return inertia(

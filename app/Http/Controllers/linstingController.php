@@ -29,6 +29,8 @@ class linstingController extends Controller
                 
                 ->filter($filters)
 
+                ->withoutSold()
+
                 ->paginate(15)//paginate nous donne accés à l'attribut "link" qui permet de naviguer entre les pages
 
                 ->withQueryString(),//permet de garder le filtre en cours de pagination

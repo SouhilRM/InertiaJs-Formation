@@ -67,4 +67,9 @@ class listing extends Model
             !in_array($value, $this->sortable) ? $query : $query->orderBy($value, $filters['order'] ?? 'desc')
         );
     }
+
+    public function scopeWithoutSold(Builder $query): Builder
+    {
+        return $query->whereNull('sold_at');
+    }
 }

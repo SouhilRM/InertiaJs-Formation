@@ -8,7 +8,7 @@ use Illuminate\Auth\Access\Response;
 
 class listingPolicy
 {
-    // "?User" veut dire que l'objet User est optionnel parcequ'on peut tres bien avoir un utilisateur non connecter qui ne possede donc pas ce model, c'est pour cela qu'on n'utilisera pas le '?User' dans les action ou il faut absolument etre connecter comme la suppression ou la modification, mais qu'on poura l'utiliser dans les action accessible par tout le monde comme visionner tous les listings ou un listing en particulier
+    // "?User" veut dire que l'objet User est optionnel (peut etre null) parcequ'on peut tres bien avoir un utilisateur non connecter qui ne possede donc pas ce model, c'est pour cela qu'on n'utilisera pas le '?User' dans les action ou il faut absolument etre connecter comme la suppression ou la modification, mais qu'on poura l'utiliser dans les action accessible par tout le monde comme visionner tous les listings ou un listing en particulier
 
     public function before(?User $user, $ability) //le mot clé "before" est important ici !!
     {
@@ -37,7 +37,11 @@ class listingPolicy
      */
     public function view(?User $user, listing $listing): bool
     {
-        return true;
+        if ($listing->by_user_id === $user?->id) {
+            return true;
+        }
+
+        return $listing->sold_at === null;
     }
 
     /**
@@ -53,8 +57,11 @@ class listingPolicy
      */
     public function update(User $user, listing $listing): bool
     {
-        //"seuls les user qui ont créé ce listing peuvent le changer"
-        return $user->id === $listing->by_user_id;
+        
+        return $listing->sold_at === null
+        //"seuls les listings qui n'ont pas été vendu peuvent etre changé"
+            && ($user->id === $listing->by_user_id);
+            //"seuls les user qui ont créé ce listing peuvent le changer"
     }
 
     /**
