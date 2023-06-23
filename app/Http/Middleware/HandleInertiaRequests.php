@@ -44,7 +44,12 @@ class HandleInertiaRequests extends Middleware
 
             //si il y a un utilisateur connecté tu renvoie certaines infos du model user sinon tu ne retourne rien
             'user' => $request->user()
-                ? $request->user()->only('id', 'name', 'email')
+                ? [
+                    'id' => $request->user()->id,
+                    'name' => $request->user()->name,
+                    'email' => $request->user()->email,
+                    'notificationCount' => $request->user()->unreadNotifications()->count()
+                  ]
                 : null,
             ]);
     }
