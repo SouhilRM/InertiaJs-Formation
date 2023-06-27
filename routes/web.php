@@ -19,19 +19,24 @@ Route::get('/test', [IndexController::class, 'test'])->name('index.test');
 
 //les routes des listings
 Route::get('/index', [linstingController::class, 'index'])->name('listing.index');
+
 Route::get('/listingShow/{listing}', [linstingController::class, 'show'])->name('listing.show');
 
 //les routes d'authentification
 Route::get('login', [AuthController::class, 'login'])->name('login');
+
 Route::post('login/store', [AuthController::class, 'store'])->name('login.store');
+
 Route::delete('logout', [AuthController::class, 'logout'])->name('logout');
 
 //les routes register
 Route::get('register', [UserAccountController::class, 'register'])->name('register');
+
 Route::post('register/store', [UserAccountController::class, 'store'])->name('register.store');
 
 //les routes de l'agent immobilier
 Route::prefix('realtor')->middleware('auth')->group(function () {
+    
     Route::get('index', [RealtorListingController::class, 'index'])->name('realtor.index');
 
     Route::delete('listing/delete/{listing}', [RealtorListingController::class, 'delete'])->name('realtor.listing.delete');
@@ -70,4 +75,5 @@ Route::put('offer/{offer}/accept', RealtorListingAcceptOfferCintroller::class)->
 
 //les routes des notifications
 Route::get('/notification/index', [NotificationController::class, 'index'])->name('notification.index')->middleware('auth');
+
 Route::put('notification/{notification}/seen',NotificationSeenController::class)->middleware('auth')->name('notification.seen');
