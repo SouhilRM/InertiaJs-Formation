@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Auth\Events\Registered;
 
 class UserAccountController extends Controller
 {
@@ -32,6 +33,9 @@ class UserAccountController extends Controller
         ]));
 
         Auth::login($user);
+
+        //pour la vérirfication de compte
+        event(new Registered($user));
 
         return redirect()->route('listing.index');
     }

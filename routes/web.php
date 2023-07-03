@@ -1,5 +1,7 @@
 <?php
 
+use Inertia\Inertia;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\IndexController;
@@ -10,6 +12,7 @@ use App\Http\Controllers\NotificationController;
 use App\Http\Controllers\RealtorListingController;
 use App\Http\Controllers\NotificationSeenController;
 use App\Http\Controllers\RealtorListingImageController;
+use Illuminate\Foundation\Auth\EmailVerificationRequest;
 use App\Http\Controllers\RealtorListingAcceptOfferCintroller;
 
 //la phase de test
@@ -29,13 +32,38 @@ Route::post('login/store', [AuthController::class, 'store'])->name('login.store'
 
 Route::delete('logout', [AuthController::class, 'logout'])->name('logout');
 
+
+
+
+
+
+Route::get('/email/verify', function(){
+    return Inertia('Auth/VerifyEmail');
+})->middleware('auth')->name('verification.notice');//le name t'as pas le choix
+
+Route::get('/email/verify/{id}/{hash}', function (EmailVerificationRequest $request) {
+    $request->fulfill();
+ 
+    return redirect()->route('listing.index');
+})->middleware(['auth', 'signed'])->name('verification.verify');
+
+Route::post('/email/verification-notification', function (Request $request) {
+    $request->user()->sendEmailVerificationNotification();
+ 
+    return back()->with('message', 'Verification link sent!');
+})->middleware(['auth', 'throttle:6,1'])->name('verification.send');
+
+
+
+
+
 //les routes register
 Route::get('register', [UserAccountController::class, 'register'])->name('register');
 
 Route::post('register/store', [UserAccountController::class, 'store'])->name('register.store');
 
 //les routes de l'agent immobilier
-Route::prefix('realtor')->middleware('auth')->group(function () {
+Route::prefix('realtor')->middleware(['auth', 'verified'])->group(function () {
     
     Route::get('index', [RealtorListingController::class, 'index'])->name('realtor.index');
 
