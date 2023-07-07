@@ -52,7 +52,7 @@
                         >Restore</button>
                     </div>
 
-                    <div class="mt-2">
+                    <div class="mt-2" v-if="!listing.deleted_at">
                         <Link :href="route('realtor.listing.image.create', { listing: listing.id })" class="block w-full btn-outline text-xs font-medium text-center">Images ({{ listing.images_count }})</Link>
                     </div>
 

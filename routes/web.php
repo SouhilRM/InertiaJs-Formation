@@ -15,10 +15,12 @@ use App\Http\Controllers\RealtorListingImageController;
 use Illuminate\Foundation\Auth\EmailVerificationRequest;
 use App\Http\Controllers\RealtorListingAcceptOfferCintroller;
 
+
 //la phase de test
 Route::get('/', [IndexController::class, 'index'])->name('index');
 Route::get('/show', [IndexController::class, 'show'])->name('index.show');
 Route::get('/test', [IndexController::class, 'test'])->name('index.test');
+
 
 //les routes des listings
 Route::get('/index', [linstingController::class, 'index'])->name('listing.index');
@@ -32,11 +34,7 @@ Route::post('login/store', [AuthController::class, 'store'])->name('login.store'
 
 Route::delete('logout', [AuthController::class, 'logout'])->name('logout');
 
-
-
-
-
-
+//les routes de notification par mail
 Route::get('/email/verify', function(){
     return Inertia('Auth/VerifyEmail');
 })->middleware('auth')->name('verification.notice');//le name t'as pas le choix
@@ -52,10 +50,6 @@ Route::post('/email/verification-notification', function (Request $request) {
  
     return back()->with('message', 'Verification link sent!');
 })->middleware(['auth', 'throttle:6,1'])->name('verification.send');
-
-
-
-
 
 //les routes register
 Route::get('register', [UserAccountController::class, 'register'])->name('register');

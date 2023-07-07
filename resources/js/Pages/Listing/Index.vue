@@ -1,14 +1,21 @@
 <template>
+
     <Filters :filters="filters" />
+
     <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4">
       <Listing v-for="listing in listings.data" :key="listing.id" :listing="listing"></Listing>
     </div>
 
-    <!-- le "links" ici c'est un attribut de l'objet listings qu'on a passé grace à la pagination via le controlleur, attention il ne s'agit pas du "Link" de inertia -->
+    <!--
+      -le "links" ici c'est un attribut de l'objet listings qu'on a passé grace à la pagination via le controlleur, attention il ne s'agit pas du "Link" de inertia
+
+      -pour acceder au données des listings qu'on a passé via les props tu rajoutes le .data pk ? à cause de la pagination
+    -->
     <div v-if="listings.data.length" class="w-full flex justify-center mt-4 mb-4">
       <Pagination :links="listings.links" />
     </div>
-  </template>
+    
+</template>
 
 <script setup>
   import Pagination from '../../Comonents/UI/Pagination.vue';

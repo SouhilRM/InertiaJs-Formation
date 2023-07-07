@@ -34,8 +34,11 @@ class linstingController extends Controller
                 ->paginate(15)//paginate nous donne accés à l'attribut "link" qui permet de naviguer entre les pages
 
                 ->withQueryString(),//permet de garder le filtre en cours de pagination
+
+                //->get() normalement tu rajoute get() mais là vu qu'on utilise la pagination avec ( ->paginate(15)->withQueryString() ) donc tu l'enlève et important aussi dant ta vue quand tu vas boucler tu boucle sur listings.data tu rajoute le .dta à cause de la pagination tjr
                 
                 //'can' => $user,
+
             ]
         );
     }
